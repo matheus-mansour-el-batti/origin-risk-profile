@@ -1,0 +1,15 @@
+services:
+    origin_financial_challenge:
+        container_name: "api_origin_financial"
+        build:
+            context: .
+            dockerfile: dev/Dockerfile
+            args:
+                - DEBUG
+        restart: always
+        env_file: .env
+        ports:
+            - ${FASTAPI_PORT}:${FASTAPI_PORT}
+        volumes:
+            - .:/app
+        command: bash -c "uvicorn app.main:app --host 0.0.0.0 --port ${FASTAPI_PORT} --reload"
